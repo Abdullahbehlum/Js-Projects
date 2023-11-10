@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="../Register.css" />
+  </head>
+  <body>
+    <div class="form-wrap">
+      <h1>Login</h1>
+      <form action="../profile.html" onsubmit=" return  HandleSubmit()">
+        <div class="input-col">
+          <p>Email</p>
+          <input
+            type="text "
+            id="Email"
+            onkeyup="HandleEmail()"
+            autocomplete="off"
+            placeholder="Enter your Email"
+          />
+          <div id="email-error" style="color: red"></div>
+        </div>
+        <div class="input-col">
+          <p>Password</p>
+          <input
+            type="text"
+            id="Password"
+            autocomplete="off"
+            onkeyup="HandlePassword()"
+            placeholder="Enter your Password"
+          />
+          <div id="password-error" style="color: red"></div>
+        </div>
+        <div style="margin-bottom: 10px">
+          <span>Are your Register <a href="../Register.html">Register</a></span>
+        </div>
+        <div>
+          <input type="submit" class="R_submit" value="Login" />
+        </div>
+      </form>
+    </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+      const Email = document.getElementById("Email");
+      const Password = document.getElementById("Password");
+      const PasswordError = document.getElementById("password-error");
+      const EmailError = document.getElementById("email-error");
+      const EmailRegx = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      function HandleSubmit() {
+        if (Email.value === "" || Password.value === "") {
+          Email.style.border = "1px solid red";
+          Password.style.border = "1px solid red";
+          swal("error", "input is required", "error");
+          return false;
+        } else {
+          Email.style.border = "1px solid orange";
+          Password.style.border = "1px solid orange";
+          swal("success", "Register and successfully", "success");
+          return true;
+        }
+        return true;
+      }
+
+      function HandleEmail() {
+        if (Email.value.length <= 8) {
+          EmailError.innerText =
+            "Email must be at least 8 characters Number symbols.";
+        } else if (Email.value.match(EmailRegx)) {
+          EmailError.innerText = "";
+          console.log(EmailRegx.test(Email.value));
+          return true;
+        } else {
+          EmailError.innerText = "Invalid email address";
+          return false;
+        }
+      }
+
+      function HandlePassword() {
+        if (Password.value.length <= 10) {
+          PasswordError.innerText =
+            "Password must be at least 10 characters long";
+          console.log("Hi");
+        } else {
+          PasswordError.innerText = "";
+        }
+      }
+    </script>
+  </body>
+</html>
